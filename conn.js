@@ -1,17 +1,18 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const form = document.querySelector('form');
-    form.addEventListener('submit', (e) => {
-        e.preventDefault();
-        
-        const name = document.getElementById('name').value;
-        const email = document.getElementById('email').value;
-        const message = document.getElementById('message').value;
-        
-        if (name && email && message) {
-            alert(`Thank you, ${name}! Your message has been sent.`);
-            form.reset();
-        } else {
-            alert('Please fill out all fields before submitting.');
-        }
-    });
+    const sections = document.querySelectorAll('.slide-up');
+    const options = { threshold: 0.3 };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                // Add fade-in class when section enters the viewport
+                entry.target.classList.add('scroll-visible');
+            } else {
+                // Remove fade-in class to trigger fade-out when section exits
+                entry.target.classList.remove('scroll-visible');
+            }
+        });
+    }, options);
+
+    sections.forEach(section => observer.observe(section));
 });
